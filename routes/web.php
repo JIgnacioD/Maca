@@ -15,8 +15,6 @@ Route::get('/', function () {
 Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
 
-Route::post('/api/update-pdvs-coordinates', [DashboardController::class, 'updatePdvsCoordinates']);
-
 Route::middleware('auth')->get('/api/user-pdvs', [DashboardController::class, 'getAssignedPdvs']);
 Route::middleware('auth')->get('/api/users', [DashboardController::class, 'getUsers']);
 
