@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id(); // ID autoincremental
             $table->string('nombre'); // Nombre del contacto
             $table->string('apellidos'); // Apellidos del contacto
-            $table->string('telefono'); // Teléfono
-            $table->string('email')->unique(); // Email único
+            $table->string('telefono')->unique(); // Teléfono
+            $table->string('email')->unique()->nullable(); // Email único
             $table->string('cargo'); // Cargo en la empresa
+
+            $table->softDeletes();
             $table->timestamps(); // Campos created_at y updated_at
         });
 

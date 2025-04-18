@@ -16,19 +16,25 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         // Seed the default user
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Nacho',
+            'email' => 'jignaciodvlpr@gmail.com',
+            'email_verified_at' => now(),
+            'role' => 'admin',
+            'password' => bcrypt('password'),
+            'remember_token' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         // Run the other seeders for PDVs, Contacts, Visits, and ContactPDV
         $this->call([
-            UserSeeder::class,
+            // UserSeeder::class,
             PDVSeeder::class,
             ContactSeeder::class,
-            VisitSeeder::class,
-            ContactPDVSeeder::class,
             UserPdvSeeder::class,
+            ContactPDVSeeder::class,
+            VisitSeeder::class,
         ]);
 
     }

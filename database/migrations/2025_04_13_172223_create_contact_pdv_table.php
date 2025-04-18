@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// TABLA DE LOS CONTACTOS O PERSONAS DE CONTACTO ENCARGADAS DEL PDV
+
 return new class extends Migration
 {
     /**

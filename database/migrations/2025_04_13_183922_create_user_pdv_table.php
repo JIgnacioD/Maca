@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+// TABLA DE PUNTOS DE VENTA QUE ESTAN ASIGNADOS A CADA USUARIO PARA SU GESTION
+
 return new class extends Migration
 {
     /**

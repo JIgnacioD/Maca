@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'leaflet/dist/leaflet.css';
 
 @plugin 'tailwindcss-animate';
 
@@ -58,6 +57,11 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
+    --breakpoint-3xl: 122rem;
+
+    --text-2xs: 0.625rem;
+    --text-3xs: 0.500rem;
 }
 
 /*
@@ -115,7 +119,7 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
+    --background: oklch(0.205 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.145 0 0);
     --card-foreground: oklch(0.985 0 0);

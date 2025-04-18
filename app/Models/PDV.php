@@ -7,10 +7,12 @@ use App\Models\User;
 use App\Models\Visit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PDV extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * Specify the table name to match the database table.
@@ -18,7 +20,7 @@ class PDV extends Model
     protected $table = 'pdvs';
 
     protected $fillable = [
-        'nombre_pdv', 'descripcion', 'direccion', 'cp', 'localidad', 'provincia', 'lat', 'lng'
+        'nombre_pdv', 'descripcion', 'direccion', 'tipo_via', 'nombre_via', 'num_via', 'cp', 'localidad', 'provincia', 'lat', 'lng'
     ];
 
     // Relación muchos a muchos con Contactos
