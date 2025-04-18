@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('pdvs', function (Blueprint $table) {
             $table->id(); // ID autoincremental
-            $table->string('nombre_pdv'); // Nombre del PDV
-            $table->text('descripcion')->nullable(); // Descripción del PDV
-            $table->string('direccion'); // Dirección del PDV
-            $table->string('tipo_via',3); // Tipo de la via del PDV
-            $table->string('nombre_via',100); // Nombre de la via del PDV
-            $table->string('num_via',4); // Número de la via del PDV
+            $table->string('pdv_name'); // Nombre del PDV
+            $table->text('description')->nullable(); // Descripción del PDV
+            $table->string('address'); // Dirección del PDV
+            $table->string('street_type',2); // Tipo de la via del PDV
+            $table->string('street_name',100); // Nombre de la via del PDV
+            $table->string('street_num',4); // Número de la via del PDV
             $table->string('cp', 5); // Código postal
-            $table->string('localidad'); // Localidad
-            $table->string('provincia'); // Provincia
+            $table->string('city'); // Localidad
+            $table->string('province'); // Provincia
             $table->decimal('lat', 10, 7); // Latitud (coordenadas geográficas)
             $table->decimal('lng', 10, 7); // Longitud (coordenadas geográficas)
 

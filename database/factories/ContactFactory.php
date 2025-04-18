@@ -9,11 +9,11 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->firstName,
-            'apellidos' => $this->faker->lastName,
-            'telefono' => $this->faker->phoneNumber,
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->unique()->safeEmail,
-            'cargo' => $this->faker->randomElement(['Manager', 'Sales Rep', 'Consultant', 'Administrator']),
+            'role' => $this->faker->randomElement(['Manager', 'Sales Rep', 'Consultant', 'Administrator']),
         ];
     }
 }

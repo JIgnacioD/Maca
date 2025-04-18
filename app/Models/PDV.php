@@ -20,7 +20,17 @@ class PDV extends Model
     protected $table = 'pdvs';
 
     protected $fillable = [
-        'nombre_pdv', 'descripcion', 'direccion', 'tipo_via', 'nombre_via', 'num_via', 'cp', 'localidad', 'provincia', 'lat', 'lng'
+        'pdv_name',
+        'description',
+        'address',
+        'street_type',
+        'street_name',
+        'street_num',
+        'cp',
+        'city',
+        'province',
+        'lat',
+        'lng'
     ];
 
     // Relación muchos a muchos con Contactos

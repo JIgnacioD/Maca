@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id(); // ID autoincremental
-            $table->string('nombre'); // Nombre del contacto
-            $table->string('apellidos'); // Apellidos del contacto
-            $table->string('telefono')->unique(); // Teléfono
+            $table->string('first_name'); // Nombre del contacto
+            $table->string('last_name'); // Apellidos del contacto
+            $table->string('phone')->unique(); // Teléfono
             $table->string('email')->unique()->nullable(); // Email único
-            $table->string('cargo'); // Cargo en la empresa
+            $table->string('role'); // Cargo en la empresa
 
             $table->softDeletes();
             $table->timestamps(); // Campos created_at y updated_at

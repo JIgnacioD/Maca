@@ -9,15 +9,15 @@ class PDVFactory extends Factory
     public function definition()
     {
         return [
-            'nombre_pdv' => 'PDV ' . $this->faker->numberBetween(1, 100),
-            'descripcion' => '',
-            'direccion' => $this->faker->streetAddress,
-            'tipo_via' => $this->faker->randomElement(['CL', 'AV', 'VI', 'PZ', 'CR']),
-            'nombre_via' => $this->faker->streetName,
-            'num_via' => $this->faker->randomNumber(2, true),
+            'pdv_name' => 'PDV ' . $this->faker->numberBetween(1, 100),
+            'description' => '',
+            'address' => $this->faker->streetAddress,
+            'street_type' => $this->faker->randomElement(['CL', 'AV', 'VI', 'PZ', 'CR']),
+            'street_name' => $this->faker->streetName,
+            'street_num' => $this->faker->randomNumber(2, true),
             'cp' => $this->faker->randomNumber(5, true),
-            'localidad' => 'GRANADA',
-            'provincia' => 'GRANADA',
+            'city' => 'GRANADA',
+            'province' => 'GRANADA',
             'lat' => $this->faker->latitude,
             'lng' => $this->faker->longitude,
         ];

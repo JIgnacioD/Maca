@@ -8,12 +8,12 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('tipo_vias', function (Blueprint $table) {
             $table->string('code', 2)->primary();
-            $table->string('denominacion');
+            $table->string('name');
             $table->timestamps();
         });
     }
 
     public function down(): void {
-        Schema::dropIfExists('tipo_vias');
+        Schema::dropIfExists('street_types');
     }
 };

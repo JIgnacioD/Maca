@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('pdv_id')->constrained('pdvs')->onDelete('cascade'); // Relationship with PDV
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relaciship with users
             $table->foreignId('contact_id')->constrained('contacts')->onDelete('cascade'); // Relaciship with users
-            $table->text('descripcion')->nullable(); // Descripción del PDV
+            $table->text('description')->nullable(); // Descripción del PDV
             $table->timestamp('start_time'); // Visit start time
             $table->timestamp('end_time')->nullable(); // End time (nullable if not completed yet)
             $table->decimal('start_lat', 10, 7); // Start latitude

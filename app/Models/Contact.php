@@ -18,7 +18,11 @@ class Contact extends Model
     protected $table = 'contacts';
 
     protected $fillable = [
-        'nombre', 'apellidos', 'telefono', 'email', 'cargo'
+        'first_name',
+        'last_name',
+        'phone',
+        'email',
+        'role'
     ];
 
     // Relación muchos a muchos con PDV
