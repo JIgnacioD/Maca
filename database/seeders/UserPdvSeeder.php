@@ -14,7 +14,7 @@ class UserPdvSeeder extends Seeder
         $pdvs = PDV::all();
 
         foreach ($users as $user) {
-            $user->assignedPdvs()->attach($pdvs->random(3)->pluck('id')); // Asigna 3 PDVs aleatorios a cada usuario
+            $user->assignedPdvs()->attach($pdvs->random(20)->pluck('id')); // Asigna 3 PDVs aleatorios a cada usuario
         }
     }
 }

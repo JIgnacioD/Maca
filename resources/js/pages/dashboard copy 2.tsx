@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { Head } from '@inertiajs/react';
 import { BreadcrumbItem } from '@/types';
-import TaskList, { Task } from '@/dashboard/TaskList';
+import TaskList, { Task } from '@/dashboard/TasksListMain';
 import GoalsProgress, { Goal } from '@/dashboard/GoalsProgressMain';
 import PdvTable from '@/dashboard/PdvTable';
 import ResourcesPanel from '@/dashboard/ResourcesPanel';

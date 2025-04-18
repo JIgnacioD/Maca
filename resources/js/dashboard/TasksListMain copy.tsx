@@ -1,4 +1,4 @@
-// components/TaskList.tsx
+// components/TasksListMain.tsx
 import React from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CheckCircle } from 'lucide-react';
@@ -15,7 +15,7 @@ interface Props {
   onToggle: (id: number) => void;
 }
 
-const TaskList: React.FC<Props> = ({ tasks, onToggle }) => {
+const TasksListMain: React.FC<Props> = ({ tasks, onToggle }) => {
   const grouped = ['Alta','Media','Baja'].map(p => ({
     priority: p,
     items: tasks.filter(t => t.priority === p)
@@ -51,4 +51,4 @@ const TaskList: React.FC<Props> = ({ tasks, onToggle }) => {
   );
 };
 
-export default TaskList;
+export default TasksListMain;

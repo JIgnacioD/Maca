@@ -1,12 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { PDV } from '@/pages/dashboard';
+import { PDV } from '@/types/tables';
 import { Info, Calendar, FilterIcon } from 'lucide-react';
-import {
-    Tooltip,
-    TooltipProvider,
-    TooltipTrigger,
-    TooltipContent,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 
 import { Link } from '@inertiajs/react';
 
@@ -17,22 +12,25 @@ interface Props {
 
 const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortField, setSortField] = useState<'nombre_pdv' | 'direccion'>('nombre_pdv');
+    const [sortField, setSortField] = useState<'pdv_name' | 'address' | 'city'>('pdv_name');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
     const [showFilterMenu, setShowFilterMenu] = useState(false);
 
     const filteredPdvs = useMemo(() => {
         const lowerSearchTerm = searchTerm.toLowerCase();
-        const filtered = pdvs.filter(
-            (pdv) =>
-                pdv.nombre_pdv.toLowerCase().includes(lowerSearchTerm) ||
-                pdv.direccion.toLowerCase().includes(lowerSearchTerm) ||
-                pdv.localidad.toLowerCase().includes(lowerSearchTerm)
-        );
+        // Filtrar los PDVs según el término de búsqueda
+        const filtered = Array.isArray(pdvs)
+            ? pdvs.filter(
+                (pdv) =>
+                    pdv.pdv_name.toLowerCase().includes(lowerSearchTerm) ||
+                    pdv.address.toLowerCase().includes(lowerSearchTerm) ||
+                    pdv.city?.toLowerCase().includes(lowerSearchTerm)
+            )
+            : [];
 
         return filtered.sort((a, b) => {
-            const fieldA = a[sortField].toLowerCase();
-            const fieldB = b[sortField].toLowerCase();
+            const fieldA = (a[sortField] ?? '').toString().toLowerCase();
+            const fieldB = (b[sortField] ?? '').toString().toLowerCase();
 
             if (fieldA < fieldB) return sortOrder === 'asc' ? -1 : 1;
             if (fieldA > fieldB) return sortOrder === 'asc' ? 1 : -1;
@@ -86,10 +84,10 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
 
                     {/* Menú de filtros */}
                     {showFilterMenu && (
-                        <div className="absolute right-0 mt-2 w-56 bg-sidebar border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-10">
+                        <div className="text-sm absolute z-50 right-0 mt-2 w-56 bg-sidebar border border-gray-200 dark:border-gray-700 rounded-md shadow-lg">
                             <div
                                 onClick={() => {
-                                    setSortField('nombre_pdv');
+                                    setSortField('pdv_name');
                                     setSortOrder('asc');
                                     setShowFilterMenu(false);
                                 }}
@@ -99,7 +97,7 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
                             </div>
                             <div
                                 onClick={() => {
-                                    setSortField('nombre_pdv');
+                                    setSortField('pdv_name');
                                     setSortOrder('desc');
                                     setShowFilterMenu(false);
                                 }}
@@ -109,7 +107,7 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
                             </div>
                             <div
                                 onClick={() => {
-                                    setSortField('direccion');
+                                    setSortField('address');
                                     setSortOrder('asc');
                                     setShowFilterMenu(false);
                                 }}
@@ -119,13 +117,33 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
                             </div>
                             <div
                                 onClick={() => {
-                                    setSortField('direccion');
+                                    setSortField('address');
                                     setSortOrder('desc');
                                     setShowFilterMenu(false);
                                 }}
                                 className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer rounded-sm"
                             >
                                 Dirección Descendente
+                            </div>
+                            <div
+                                onClick={() => {
+                                    setSortField('city');
+                                    setSortOrder('asc');
+                                    setShowFilterMenu(false);
+                                }}
+                                className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer rounded-sm"
+                            >
+                                Localidad Ascendente
+                            </div>
+                            <div
+                                onClick={() => {
+                                    setSortField('city');
+                                    setSortOrder('desc');
+                                    setShowFilterMenu(false);
+                                }}
+                                className="px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer rounded-sm"
+                            >
+                                Localidad Descendente
                             </div>
                         </div>
                     )}
@@ -147,13 +165,13 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
                                     onClick={() => onSelect(pdv)}
                                 >
                                     <td className="px-4 py-2 text-gray-500 dark:text-gray-400 w-1/3">
-                                        {pdv.nombre_pdv}
+                                        {pdv.pdv_name}
                                     </td>
                                     <td className="px-4 py-2 text-gray-500 dark:text-gray-400 w-max">
-                                        {pdv.direccion}
+                                        {pdv.address}
                                     </td>
                                     <td className="px-4 py-2 text-gray-500 dark:text-gray-400 w-max">
-                                        {pdv.localidad}
+                                        {pdv.city}
                                     </td>
                                 </tr>
                             ))}
