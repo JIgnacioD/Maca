@@ -69,7 +69,7 @@ const GoalsProgress: React.FC = () => {
           </h2>
           <button className="flex items-center space-x-1 px-3 py-2 rounded-md bg-sky-800 text-white hover:bg-blue-600 transition">
             <File size={20} />
-            <span>ACCESO</span>
+            <span>Acceso</span>
           </button>
         </div>
       </TooltipProvider>

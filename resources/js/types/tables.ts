@@ -28,7 +28,8 @@ export interface User {
 export interface Task {
     id: number;
     title: string;
-    status: string;
+    description?: string;
+    status: 'pending' | 'in_progress' | 'completed' | 'failed';
     pdv_id: number;
-    // otras propiedades relevantes
+    // Add other task properties as needed
 }

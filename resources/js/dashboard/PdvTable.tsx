@@ -1,24 +1,51 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { PDV } from '@/types/tables';
 import { Info, Calendar, FilterIcon } from 'lucide-react';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
-
 import { Link } from '@inertiajs/react';
 
 interface Props {
-    pdvs: PDV[];
+    pdvs?: PDV[];  // Hacemos pdvs opcional ya que se cargarán desde la API
     onSelect: (pdv: PDV) => void;
 }
 
-const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
+const PdvTable: React.FC<Props> = ({ pdvs: externalPdvs, onSelect }) => {
+    const [pdvs, setPdvs] = useState<PDV[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortField, setSortField] = useState<'pdv_name' | 'address' | 'city'>('pdv_name');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
     const [showFilterMenu, setShowFilterMenu] = useState(false);
 
+    // Cargar los PDVs desde la API
+    useEffect(() => {
+        if (externalPdvs) {
+            setPdvs(externalPdvs);
+            setLoading(false);
+        } else {
+            // Cargar desde la API si no se proporcionan PDVs externos
+            const fetchPdvs = async () => {
+                try {
+                    const response = await fetch('/api/user-pdvs');
+                    if (!response.ok) {
+                        throw new Error('Error al cargar los puntos de venta');
+                    }
+                    const data = await response.json();
+                    setPdvs(data);
+                } catch (err: any) {
+                    setError(err.message);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchPdvs();
+        }
+    }, [externalPdvs]);
+
+    // Filtrar y ordenar los PDVs
     const filteredPdvs = useMemo(() => {
         const lowerSearchTerm = searchTerm.toLowerCase();
-        // Filtrar los PDVs según el término de búsqueda
         const filtered = Array.isArray(pdvs)
             ? pdvs.filter(
                 (pdv) =>
@@ -38,6 +65,14 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
         });
     }, [searchTerm, pdvs, sortField, sortOrder]);
 
+    // Mostrar estado de carga o error
+    if (loading) {
+        return <p>Cargando puntos de venta...</p>;
+    }
+
+    if (error) {
+        return <p className="text-red-500">Error: {error}</p>;
+    }
 
     return (
         <div className="p-4 space-y-4">
@@ -64,7 +99,6 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
 
             {/* Campo de búsqueda */}
             <div className="flex items-center space-x-2">
-                {/* Campo de búsqueda */}
                 <input
                     type="text"
                     placeholder="Buscar por nombre o dirección..."
@@ -150,7 +184,6 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
                 </div>
             </div>
 
-
             <div className="overflow-y-auto max-h-[calc(100vh-18rem)] lg:max-h-[calc(100vh-16.1rem)]">
                 {filteredPdvs.length ? (
                     <table className="w-full text-xs">
@@ -176,15 +209,12 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => {
                                 </tr>
                             ))}
                         </tbody>
-                        <tfoot>
-                        </tfoot>
                     </table>
                 ) : (
                     <p className="ml-4 text-sm text-gray-500 dark:text-gray-400">
                         No se encontraron puntos de venta.
                     </p>
                 )}
-
             </div>
             <div className="ml-4 mt-2 text-sm text-gray-700 dark:text-gray-300 text-left">
                 TOTAL DE REGISTROS : {filteredPdvs.length}

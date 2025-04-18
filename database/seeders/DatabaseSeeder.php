@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
             UserPdvSeeder::class,
             ContactPDVSeeder::class,
             VisitSeeder::class,
+            GoalsSeeder::class,
+
         ]);
 
     }

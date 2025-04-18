@@ -7,12 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-
-
 Route::get('/', function () {
     if (Auth::check()) {
-        return Inertia::render('dashboard'); // Vista para usuarios autenticados
+        return redirect()->route('dashboard'); // Vista para usuarios autenticados
     } else {
         return Inertia::render('welcome'); // Vista para visitantes
     }
@@ -25,8 +22,10 @@ Route::middleware('auth')->get('/api/user-pdvs', [DashboardController::class, 'g
 Route::middleware('auth')->get('/api/users', [DashboardController::class, 'getUsers']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () { return Inertia::render('dashboard'); })->name('dashboard');
-    Route::get('planner', function () { return Inertia::render('planner'); })->name('planner');
+    // Route::get('dashboard', function () { return Inertia::render('dashboard'); })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/api/planner', function () { return Inertia::render('api/planner'); })->name('planner');
+    Route::get('/api/goals', [GoalsController::class, 'index']);
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,superadmin'])->group(function () {

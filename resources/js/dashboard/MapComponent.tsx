@@ -31,7 +31,7 @@ interface MapComponentProps {
 function ChangeView({ center }: { center: [number, number] }) {
     const map = useMap();
     useEffect(() => {
-        map.setView(center, 15);
+        map.setView(center, 4);
     }, [center, map]);
     return null;
 }
@@ -67,8 +67,8 @@ export default function MapComponent({ pdvs, selectedPdv, isFullScreen }: MapCom
     return (
         <MapContainer
             center={center}
-            zoom={16}
-            minZoom={1}
+            zoom={4}
+            minZoom={2}
             maxZoom={20}
             scrollWheelZoom={false}
             style={{ height: '100%', width: '100%', borderRadius: '0.4rem' }}

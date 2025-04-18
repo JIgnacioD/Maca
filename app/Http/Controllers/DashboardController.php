@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use \App\Models\User;
+use App\Models\PDV;
+use App\Models\Task;
+use App\Models\GoalsProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        $pdvs = $user->assignedPdvs; // Usando la relación que ya tienes definida
+
+        return Inertia::render('dashboard', [
+            'pdvs' => $pdvs,
+            'tasks' => Task::all(),
+            'objectives' => GoalsProgress::all(),
+        ]);
+    }
     public function getUsers(Request $request)
     {
         $users = User::all(); // Obtener todos los usuarios
@@ -16,6 +31,7 @@ class DashboardController extends Controller
 
     public function getAssignedPdvs(Request $request)
     {
+        try {
         $user = $request->user(); // Usuario autenticado
 
         if (!$user) {
@@ -31,27 +47,9 @@ class DashboardController extends Controller
 
         return response()->json($assignedPdvs); // Devolver en JSON
 
-    }
-
-    public function updatePdvsCoordinates()
-    {
-        $pdvs = \App\Models\Pdv::all(); // Obtener todos los PDVs desde la base de datos
-
-        foreach ($pdvs as $pdv) {
-            $address = urlencode($pdv->direccion); // Codificar la dirección para usarla en la URL
-            $url = "https://nominatim.openstreetmap.org/search?q=$address&format=json&addressdetails=1";
-
-            // Llamar a Nominatim
-            $response = file_get_contents($url);
-            $data = json_decode($response);
-
-            if (!empty($data) && isset($data[0]->lat) && isset($data[0]->lon)) {
-                $pdv->lat = $data[0]->lat; // Actualizar latitud
-                $pdv->lng = $data[0]->lon; // Actualizar longitud
-                $pdv->save(); // Guardar los nuevos datos en la base de datos
-            }
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Error al obtener los puntos de venta', 'error' => $e->getMessage()], 500);
         }
-
-        return response()->json(['message' => 'Coordenadas actualizadas exitosamente']);
     }
+
 }

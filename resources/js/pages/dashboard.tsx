@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -9,7 +9,7 @@ import MapComponent from '@/dashboard/MapComponent';
 import TasksListMain from '@/dashboard/TasksListMain';
 import GoalsProgressMain from '@/dashboard/GoalsProgressMain';
 import ResourcesMain from '@/dashboard/ResourcesMain';
-import PdvList from '@/dashboard/PdvTable';
+import PdvTable from '@/dashboard/PdvTable';
 
 interface GoalsProgressMain {
     // Define aquí la estructura de un objetivo según tu backend
@@ -35,9 +35,17 @@ export default function Dashboard() {
     // Local state for selected PDV
     const [selectedPDV, setSelectedPDV] = useState<PDV | null>(null);
 
+     // Agregar más logs para debug
+     useEffect(() => {
+        console.log('Raw PDVs from server:', pdvs);
+    }, [pdvs]);
+
     const handlePdvSelect = (pdv: PDV) => {
+        console.log('Selected PDV:', pdv);
         setSelectedPDV(pdv);
     };
+
+    console.log('PDVs:', pdvs);
 
     // Transform PDVs data
     const transformedPdvs = Array.isArray(pdvs)
@@ -65,36 +73,12 @@ export default function Dashboard() {
 
                     {/* Section 1: PDV List */}
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
-                        <PdvList pdvs={pdvs} onSelect={handlePdvSelect} />
-                                            <ul>
-                            {/* {pdvs.map((pdv) => (
-                        <li
-                            key={pdv.id}
-                            onClick={() => setSelectedPDV(pdv)}
-                            className={`p-2 cursor-pointer rounded ${selectedPDV && selectedPDV.id === pdv.id ? 'bg-blue-100' : 'hover:bg-gray-100'}`}
-                        >
-                            {pdv.pdv_name}
-                        </li>
-                    ))} */}
-                        </ul>
+                        <PdvTable pdvs={transformedPdvs} onSelect={handlePdvSelect} />
                     </div>
 
                     {/* Section 2: PDV Details + Active Tasks */}
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
-                        {selectedPDV && (
-                            <div className="mb-4">
-                                <h2 className="text-xl font-semibold">Detalles de PDV</h2>
-                                <div className="mt-2">
-                                    <p><strong>Dirección:</strong> {selectedPDV.address}</p>
-                                    <p><strong>Coordenadas:</strong> {selectedPDV.lat}, {selectedPDV.lng}</p>
-                                    <button className="mt-2 px-4 py-2 bg-green-500 text-white rounded" onClick={() => {/* lógica para nueva tarea */ }}>Iniciar nueva tarea</button>
-                                </div>
-                            </div>
-                        )}
-                        <div className="flex-1 overflow-auto">
-                            <h2 className="text-xl font-semibold mb-2">Tareas Activas</h2>
-                            <TasksListMain tasks={tasks} selectedPdv={selectedPDV} />
-                        </div>
+                        <TasksListMain tasks={tasks} selectedPdv={selectedPDV} />
                     </div>
                     {/* Section 3: Map */}
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
@@ -106,7 +90,6 @@ export default function Dashboard() {
                 <div className="grid auto-rows-fr gap-2 lg:grid-cols-3 h-[calc(h-full - 50px)] lg:h-[46vh]">
                     {/* Section 4: Objectives */}
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
-                        <h2 className="text-xl font-semibold mb-2">Objetivos</h2>
                         <GoalsProgressMain />
                     </div>
 
