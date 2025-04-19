@@ -24,4 +24,12 @@ class SubGoal extends Model
     {
         return $this->belongsTo(Goal::class, 'goals_id');
     }
+    public function timeGoals()
+    {
+        return $this->hasMany(TimeGoal::class, 'subgoals_id');
+    }
+    public function merchandisings()
+    {
+        return $this->belongsToMany(Merchandising::class, 'merchandising_subgoal');
+    }
 }

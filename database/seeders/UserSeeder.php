@@ -13,6 +13,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Crear 10 usuarios aleatorios
-        User::factory()->count(10)->create();
+        User::factory()->count(1)->create();
     }
 }

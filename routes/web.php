@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GoalProgressController;
+use App\Http\Controllers\MerchandisingController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -25,7 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('dashboard', function () { return Inertia::render('dashboard'); })->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/api/planner', function () { return Inertia::render('api/planner'); })->name('planner');
-    Route::get('/api/goals', [GoalsController::class, 'index']);
+    Route::get('/api/goals', [GoalProgressController::class, 'index'])->name('goals.progress');
+    Route::get('/api/merchandising', [MerchandisingController::class, 'index']);
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,superadmin'])->group(function () {

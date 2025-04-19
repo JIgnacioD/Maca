@@ -9,6 +9,7 @@ import MapComponent from '@/dashboard/MapComponent';
 import TasksListMain from '@/dashboard/TasksListMain';
 import GoalsProgressMain from '@/dashboard/GoalsProgressMain';
 import ResourcesMain from '@/dashboard/ResourcesMain';
+import MerchandisingMain from '@/dashboard/MerchandisingMain';
 import PdvTable from '@/dashboard/PdvTable';
 
 interface GoalsProgressMain {
@@ -69,39 +70,38 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-screen flex-1 flex-col gap-2 rounded-md p-2">
-                <div className="grid auto-rows-fr gap-2 lg:grid-cols-3 h-[calc(h-full - 50px)] lg:h-[46vh]">
+                <div className="grid auto-rows-fr gap-2 lg:grid-cols-3 h-[calc(h-full - 50px)] lg:h-[47vh]">
 
                     {/* Section 1: PDV List */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
+                    <div className="bg-secondary border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
                         <PdvTable pdvs={transformedPdvs} onSelect={handlePdvSelect} />
                     </div>
 
                     {/* Section 2: PDV Details + Active Tasks */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
+                    <div className="bg-secondary border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
                         <TasksListMain tasks={tasks} selectedPdv={selectedPDV} />
                     </div>
                     {/* Section 3: Map */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
+                    <div className="bg-secondary border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
                         <MapComponent pdvs={transformedPdvs as PDV[]} selectedPdv={selectedPDV as PDV | null} />
                     </div>
 
                 </div>
 
-                <div className="grid auto-rows-fr gap-2 lg:grid-cols-3 h-[calc(h-full - 50px)] lg:h-[46vh]">
+                <div className="grid auto-rows-fr gap-2 lg:grid-cols-3 h-[calc(h-full - 50px)] lg:h-[47vh]">
                     {/* Section 4: Objectives */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
+                    <div className="bg-secondary border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
                         <GoalsProgressMain />
                     </div>
 
 
-                    {/* Section 5: Placeholder (As-is) */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
-                        {/* Mantener la funcionalidad actual */}
-                        PROXIMAMENTE
+                    {/* Section 5: Merchandising */}
+                    <div className="bg-secondary border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
+                        <MerchandisingMain />
                     </div>
 
                     {/* Section 6: ResourcesMain */}
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
+                    <div className="bg-secondary border-sidebar-border/70 dark:border-sidebar-border relative overflow-y-auto rounded-md border h-full">
                         <ResourcesMain />
                     </div>
                 </div>

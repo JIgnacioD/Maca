@@ -59,5 +59,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(PDV::class, 'user_pdv', 'user_id', 'pdv_id');
     }
-
+    public function merchandisingUsages()
+    {
+        return $this->hasMany(MerchandisingUser::class);
+    }
 }
