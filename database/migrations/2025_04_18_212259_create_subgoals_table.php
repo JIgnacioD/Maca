@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('subgoals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('goals_id')->constrained()->onDelete('cascade');
+            $table->string('name');
             $table->string('description');
             $table->integer('value');
             $table->timestamps();

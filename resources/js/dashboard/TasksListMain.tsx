@@ -3,7 +3,7 @@ import { PDV, Task } from '@/types/tables';
 import { TaskStatusBadge } from '@/dashboard/TaskStatusBadge';
 import { motion } from 'framer-motion';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
-import { Info, Calendar, FilterIcon } from 'lucide-react';
+import { Info, NotebookText } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 
 interface TasksListProps {
@@ -34,8 +34,8 @@ export default function TasksListMain({ tasks, selectedPdv }: TasksListProps) {
                             <TooltipContent>Organizadas por prioridad</TooltipContent>
                         </Tooltip>
                     </h2>
-                    <Link href="/planner" className="btn btn-primary flex items-center space-x-1 px-3 py-2 rounded-md bg-rose-800 text-white hover:bg-rose-600 transition">
-                        <Calendar size={20} />
+                    <Link href="/planner" className="btn btn-primary flex items-center space-x-1 px-3 py-2 rounded-md bg-amber-800 text-white hover:bg-amber-600 transition">
+                        <NotebookText size={20} />
                         <span>Tareas</span>
                     </Link>
                 </div>

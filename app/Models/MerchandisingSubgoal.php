@@ -2,26 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class MerchandisingSubgoal extends Model
+class MerchandisingSubgoal extends Pivot
 {
     protected $table = 'merchandising_subgoal';
+
     protected $fillable = [
         'merchandising_id',
         'subgoal_id',
     ];
-
-    public function merchandising()
-    {
-        return $this->belongsTo(Merchandising::class);
-    }
-    public function subGoal()
-    {
-        return $this->belongsTo(SubGoal::class);
-    }
     public function usages()
     {
-        return $this->hasMany(MerchandisingUser::class);
+        return $this->hasMany(MerchandisingUser::class, 'merchandising_subgoal_id');
     }
 }

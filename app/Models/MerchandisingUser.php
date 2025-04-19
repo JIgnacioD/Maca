@@ -23,8 +23,9 @@ class MerchandisingUser extends Model
     {
         return $this->belongsTo(MerchandisingSubgoal::class, 'merchandising_subgoal_id');
     }
+
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

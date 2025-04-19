@@ -149,9 +149,9 @@ export default function Dashboard() {
     return (
         <AppLayout>
             <Head title="Dashboard" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <div className="flex h-full flex-1 flex-col gap-2 rounded-xl p-2">
                 {/* Sección superior: Listado de PDVs y otros cuadros */}
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                <div className="grid auto-rows-min gap-2 md:grid-cols-3">
                     {/* Listado de Puntos de Venta */}
                     <div className="p-4 border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">
                         <span className="text-lg font-semibold text-gray-700 dark:text-gray-200">
@@ -171,10 +171,10 @@ export default function Dashboard() {
                                                 onClick={() => handlePdvSelect(pdv)}
                                             >
                                                 <td className="px-4 py-2 text-gray-500 dark:text-gray-400 w-1/3">
-                                                    {pdv.nombre_pdv}
+                                                    {pdv.pdv_name}
                                                 </td>
                                                 <td className="px-4 py-2 text-gray-500 dark:text-gray-400 w-max">
-                                                    {pdv.direccion}
+                                                    {pdv.address}
                                                 </td>
                                             </tr>
                                         ))}
@@ -231,7 +231,7 @@ export default function Dashboard() {
                         >
                             {isFullScreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
                         </button>
-                        <div id="map" style={{ height: '100%', width: '100%' }}></div>
+                        <div id="map" className="min-h-80" style={{ height: '100%', width: '100%' }}></div>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { PDV } from '@/types/tables';
-import { Info, Calendar, FilterIcon } from 'lucide-react';
+import { Info, CalendarDays, FilterIcon } from 'lucide-react';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { Link } from '@inertiajs/react';
 
@@ -75,9 +75,9 @@ const PdvTable: React.FC<Props> = ({ pdvs: externalPdvs, onSelect }) => {
     }
 
     return (
-        <div className="p-4 space-y-4">
+        <div className="p-2 space-y-1">
             <TooltipProvider>
-                <div className="pb-2 border-b dark:border-gray-700 flex items-center justify-between">
+                <div className="p-1 border-b dark:border-gray-700 flex items-center justify-between">
                     <h2 className="text-md md:text-lg mr-4 font-bold text-gray-800 dark:text-gray-200 flex items-center">
                         PUNTOS DE VENTA
                         <Tooltip>
@@ -90,8 +90,8 @@ const PdvTable: React.FC<Props> = ({ pdvs: externalPdvs, onSelect }) => {
                             <TooltipContent>Organizadas por prioridad</TooltipContent>
                         </Tooltip>
                     </h2>
-                    <Link href="/planner" className="btn btn-primary flex items-center space-x-1 px-3 py-2 rounded-md bg-green-800 text-white hover:bg-green-600 transition">
-                        <Calendar size={20} />
+                    <Link href="/pdvs" className="btn btn-primary flex items-center space-x-1 px-3 py-2 rounded-md bg-amber-800 text-white hover:bg-amber-600 transition">
+                        <CalendarDays size={20} />
                         <span>Agenda</span>
                     </Link>
                 </div>
@@ -104,14 +104,14 @@ const PdvTable: React.FC<Props> = ({ pdvs: externalPdvs, onSelect }) => {
                     placeholder="Buscar por nombre o dirección..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring"
+                    className="flex-1 px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-md text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring"
                 />
 
                 {/* Botón de filtro */}
                 <div className="relative">
                     <button
                         onClick={() => setShowFilterMenu(!showFilterMenu)}
-                        className="bg-sidebar p-2 text-gray-700 border border-gray-300 dark:border-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-800 dark:hover:bg-neutral-700 focus:outline-none focus:ring"
+                        className="bg-sidebar p-1.5 text-gray-700 border border-gray-300 dark:border-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-800 dark:hover:bg-neutral-700 focus:outline-none focus:ring"
                     >
                         <FilterIcon />
                     </button>
@@ -184,7 +184,7 @@ const PdvTable: React.FC<Props> = ({ pdvs: externalPdvs, onSelect }) => {
                 </div>
             </div>
 
-            <div className="overflow-y-auto max-h-[calc(100vh-18rem)] lg:max-h-[calc(100vh-16.1rem)]">
+            <div className="overflow-y-auto mb-4 max-h-[calc(100vh-11.5rem)] md:max-h-[calc(100vh-34rem)] xl:max-h-[calc(100vh-39.5rem)] 3xl:max-h-[calc(100vh-52rem)]">
                 {filteredPdvs.length ? (
                     <table className="w-full text-xs">
                         <thead>
@@ -201,7 +201,7 @@ const PdvTable: React.FC<Props> = ({ pdvs: externalPdvs, onSelect }) => {
                                         {pdv.pdv_name}
                                     </td>
                                     <td className="px-4 py-2 text-gray-500 dark:text-gray-400 w-max">
-                                        {pdv.address}
+                                        {pdv.street_name}
                                     </td>
                                     <td className="px-4 py-2 text-gray-500 dark:text-gray-400 w-max">
                                         {pdv.city}

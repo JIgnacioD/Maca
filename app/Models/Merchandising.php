@@ -24,17 +24,10 @@ class Merchandising extends Model
 
     public function subGoals()
     {
-        return $this->belongsToMany(SubGoal::class, 'merchandising_subgoal')
-                    ->using(MerchandisingSubgoal::class)
+        return $this->belongsToMany(SubGoal::class, 'merchandising_subgoal','merchandising_id','subgoal_id')
                     ->withPivot(['id'])
                     ->withTimestamps();
     }
-
-    public function merchandisingSubgoals()
-    {
-        return $this->hasMany(MerchandisingSubgoal::class);
-    }
-
     public function usages()
     {
         return $this->hasManyThrough(

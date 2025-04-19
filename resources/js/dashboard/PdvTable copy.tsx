@@ -28,7 +28,7 @@ const PdvTable: React.FC<Props> = ({ pdvs, onSelect }) => (
                 </button>
             </div>
         </TooltipProvider>
-        <div className="overflow-y-auto max-h-[calc(100vh-18rem)] lg:max-h-[calc(100vh-10.2rem)]">
+        <div className="overflow-y-auto max-h-[10px]">
             {pdvs.length
                 ? (
                     <table className="w-full text-xs">

@@ -130,7 +130,7 @@ export default function GoalsProgressMain() {
                             <TooltipContent>Progreso de objetivos actuales y próximos</TooltipContent>
                         </Tooltip>
                     </h2>
-                    <button className="flex items-center space-x-1 px-3 py-2 rounded-md bg-sky-700 text-white hover:bg-sky-600 transition">
+                    <button className="flex items-center space-x-1 px-3 py-2 rounded-md bg-amber-700 text-white hover:bg-amber-600 transition">
                         <ChartBarIncreasing size={20} />
                         <span>Gestionar</span>
                     </button>

@@ -13,6 +13,7 @@ class SubGoal extends Model
 
     protected $fillable = [
         'goals_id',
+        'name',
         'description',
         'value'
     ];
@@ -28,8 +29,10 @@ class SubGoal extends Model
     {
         return $this->hasMany(TimeGoal::class, 'subgoals_id');
     }
-    public function merchandisings()
+    public function merchandisingSubgoal()
     {
-        return $this->belongsToMany(Merchandising::class, 'merchandising_subgoal');
+        return $this->belongsToMany(Merchandising::class, 'merchandising_subgoal', 'subgoal_id', 'merchandising_id')
+                    ->withPivot(['id'])
+                    ->withTimestamps();
     }
 }

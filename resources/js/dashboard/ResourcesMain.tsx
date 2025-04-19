@@ -67,7 +67,7 @@ const GoalsProgress: React.FC = () => {
               <TooltipContent> Documentación necesaria para ayuda a GPV</TooltipContent>
             </Tooltip>
           </h2>
-          <button className="flex items-center space-x-1 px-3 py-2 rounded-md bg-sky-800 text-white hover:bg-blue-600 transition">
+          <button className="flex items-center space-x-1 px-3 py-2 rounded-md bg-amber-800 text-white hover:bg-amber-600 transition">
             <File size={20} />
             <span>Acceso</span>
           </button>
