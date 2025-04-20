@@ -29,14 +29,9 @@ export default function PDVManagementPage() {
     return (
         <AppLayout>
             <Head title="Gestión de PDVs" />
-            <div className="flex h-[calc(100vh-4rem)]">
-                {/* Map panel - 1/3 */}
-                <div className="w-1/3 p-4">
-                    <PDVMap pdvs={raw} selected={selected} />
-                </div>
-
+            <div className="flex flex-col md:flex-row h-[calc(100vh-4rem)]">
                 {/* List & Form panel - 2/3 */}
-                <div className="w-2/3 p-4">
+                <div className="w-[100vw] md:w-2/3 p-1 lg:p-2">
                     {!modalOpen ? (
                         <PDVList
                             pdvs={pdvs}
@@ -56,6 +51,11 @@ export default function PDVManagementPage() {
                             onSave={handleSave}
                         />
                     )}
+                </div>
+
+                {/* Map panel - 1/3 */}
+                <div className="w-1/3 pr-1 pt-1 lg:pt-2">
+                    <PDVMap pdvs={raw} selected={selected} />
                 </div>
             </div>
         </AppLayout>
