@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { PDV, Task } from '@/types/tables';
-import { TaskStatusBadge } from '@/dashboard/TaskStatusBadge';
+import { TaskStatusBadge } from '@/layouts/dashboard/TaskStatusBadge';
 import { motion } from 'framer-motion';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { Info, NotebookText } from 'lucide-react';

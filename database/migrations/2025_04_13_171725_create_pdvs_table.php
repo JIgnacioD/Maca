@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('cp', 5); // Código postal
             $table->string('city'); // Localidad
             $table->string('province'); // Provincia
-            $table->decimal('lat', 10, 7); // Latitud (coordenadas geográficas)
-            $table->decimal('lng', 10, 7); // Longitud (coordenadas geográficas)
+            $table->decimal('lat', 10, 7)->nullable(); // Latitud (coordenadas geográficas)
+            $table->decimal('lng', 10, 7)->nullable(); // Longitud (coordenadas geográficas)
 
             $table->softDeletes();
             $table->timestamps(); // Campos created_at y updated_at

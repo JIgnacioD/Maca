@@ -5,12 +5,12 @@ import { Head } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 import { PDV, Task } from '@/types/tables';
 
-import MapComponent from '@/dashboard/MapComponent';
-import TasksListMain from '@/dashboard/TasksListMain';
-import GoalsProgressMain from '@/dashboard/GoalsProgressMain';
-import ResourcesMain from '@/dashboard/ResourcesMain';
-import MerchandisingMain from '@/dashboard/MerchandisingMain';
-import PdvTable from '@/dashboard/PdvTable';
+import MapComponent from '@/layouts/dashboard/MapComponent';
+import TasksListMain from '@/layouts/dashboard/TasksListMain';
+import GoalsProgressMain from '@/layouts/dashboard/GoalsProgressMain';
+import ResourcesMain from '@/layouts/dashboard/ResourcesMain';
+import MerchandisingMain from '@/layouts/dashboard/MerchandisingMain';
+import PdvTable from '@/layouts/dashboard/PdvTable';
 
 interface GoalsProgressMain {
     // Define aquí la estructura de un objetivo según tu backend

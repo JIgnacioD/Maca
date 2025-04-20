@@ -31,6 +31,10 @@ class PdvController extends Controller
         $validated = $request->validate([
             'pdv_name'   => 'required|string|max:255',
             'address'    => 'required|string|max:255',
+            'street_type'    => 'required|string|max:2',
+            'street_name'    => 'required|string|max:100',
+            'street_num'    => 'required|string|max:4',
+            'cp'         => 'required|string|max:5',
             'city'       => 'required|string|max:100',
             'province'   => 'required|string|max:100',
         ]);
@@ -61,6 +65,10 @@ class PdvController extends Controller
         $validated = $request->validate([
             'pdv_name'   => 'required|string|max:255',
             'address'    => 'required|string|max:255',
+            'street_type'    => 'required|string|max:2',
+            'street_name'    => 'required|string|max:100',
+            'street_num'    => 'required|string|max:4',
+            'cp'         => 'required|string|max:5',
             'city'       => 'required|string|max:100',
             'province'   => 'required|string|max:100',
         ]);
