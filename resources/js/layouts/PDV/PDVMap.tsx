@@ -1,41 +1,101 @@
+import { MapContainer } from "react-leaflet";
 import React, { useEffect, useRef } from 'react';
-import L from 'leaflet';
+import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import { PDV } from '@/types/pdv';
 
-interface Props {
+
+
+interface PDVMapProps {
     pdvs: PDV[];
     selected?: PDV;
 }
 
-export default function PDVMap({ pdvs, selected }: Props) {
-    const mapRef = useRef<L.Map>();
-    const markersRef = useRef<any>();
+const PDVMap: React.FC<PDVMapProps> = ({ pdvs = [], selected }) => {
+    const mapRef = useRef<L.Map | null>(null);
+
+
+    const clusterRef = useRef<L.MarkerClusterGroup | null>(null);
 
     useEffect(() => {
-        if (!mapRef.current && pdvs.length) {
-            mapRef.current = L.map('map').setView([pdvs[0].lat, pdvs[0].lng], 6);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapRef.current);
-            markersRef.current = (L.markerClusterGroup as any)().addTo(mapRef.current);
-        }
-    }, [pdvs]);
+        try {
+            if (!pdvs || pdvs.length === 0) {
+                console.error('La lista de PDVs está vacía o no definida.');
+                return;
+            }
 
-    useEffect(() => {
-        if (mapRef.current && markersRef.current) {
-            markersRef.current.clearLayers();
-            pdvs.forEach(p => {
-                const m = L.marker([p.lat, p.lng]).bindPopup(`<b>${p.pdv_name}</b><br>${p.address}`);
-                markersRef.current.addLayer(m);
+            if (!mapRef.current) {
+                mapRef.current = L.map('map', {
+                    center: [pdvs[0]?.lat || 0, pdvs[0]?.lng || 0],
+                    zoom: 6,
+                });
+
+                // Capa satélite (ESRI World Imagery)
+                L.tileLayer(
+                    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                ).addTo(mapRef.current);
+
+                // Capa de etiquetas de calles (Stamen Toner Labels) con transparencia
+                L.tileLayer(
+                    'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-labels/{z}/{x}/{y}.png',
+                    { opacity: 0.7, attribution: 'Map tiles by Stamen Design' }
+                ).addTo(mapRef.current);
+
+                // Crear MarkerClusterGroup
+                // @ts-ignore: MarkerCluster no está tipado en @types/leaflet
+                clusterRef.current = (L as any).markerClusterGroup({
+                    maxClusterRadius: 60,
+                    iconCreateFunction: (cluster: any) =>
+                        L.divIcon({
+                            html: `
+                  <div class="cluster-icon">
+                    <img src="/icons/cluster.svg" alt="Cluster"/>
+                    <span>${cluster.getChildCount()}</span>
+                  </div>`,
+                            className: 'custom-cluster',
+                            iconSize: [40, 40],
+                        }),
+                });
+                clusterRef.current.addTo(mapRef.current);
+            }
+
+            // Refrescar marcadores al cambiar pdvs
+            const cluster = clusterRef.current!;
+            cluster.clearLayers();
+
+            pdvs.forEach((pdv) => {
+                // Icono personalizado por PDV
+                const pdvIcon = L.icon({
+                    iconUrl: pdv.iconUrl,
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32],
+                    popupAnchor: [0, -32],
+                });
+
+                const marker = L.marker([pdv.lat, pdv.lng], { icon: pdvIcon })
+                    .bindPopup(`<strong>PDV</strong><br/>${pdv.name || ''}`);
+
+                cluster.addLayer(marker);
+
+                // Centrar el mapa en el PDV seleccionado
+                if (
+                    selected &&
+                    selected.lat === pdv.lat &&
+                    selected.lng === pdv.lng
+                ) {
+                    marker.openPopup();
+                    mapRef.current!.setView([selected.lat, selected.lng], 8);
+                }
             });
+        } catch (error) {
+            console.error('Error al renderizar el mapa:', error);
         }
-    }, [pdvs]);
+    }, [pdvs, selected]);
 
-    useEffect(() => {
-        if (selected && mapRef.current) {
-            mapRef.current.setView([selected.lat, selected.lng], 12);
-        }
-    }, [selected]);
+    return <div id="map" className="h-full w-full" style={{ height: '100%', width: '100%' }} />;
+};
 
-    return <div id="map" className="w-full h-full z-50 rounded-md" />;
-}
+export default PDVMap;

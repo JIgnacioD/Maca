@@ -55,7 +55,7 @@ export default function PDVManagementPage() {
 
                 {/* Map panel - 1/3 */}
                 <div className="w-1/3 pr-1 pt-1 lg:pt-2">
-                    <PDVMap pdvs={raw} selected={selected} />
+                    {/* <PDVMap pdvs={raw} selected={selected} /> */}
                 </div>
             </div>
         </AppLayout>
