@@ -40,16 +40,3 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
-
-type UserRole = 'user' | 'admin' | 'superadmin';
-
-interface AuthUser {
-    role: UserRole;
-}
-
-interface PageProps {
-    auth: {
-        user: AuthUser;
-    };
-    [key: string]: unknown; // 👈 esto le dice a TypeScript que puede tener cualquier otra prop
-}

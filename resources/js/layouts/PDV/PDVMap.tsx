@@ -7,8 +7,6 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import { PDV } from '@/types/pdv';
 
-
-
 interface PDVMapProps {
     pdvs: PDV[];
     selected?: PDV;
@@ -97,5 +95,3 @@ const PDVMap: React.FC<PDVMapProps> = ({ pdvs = [], selected }) => {
 
     return <div id="map" className="h-full w-full" style={{ height: '100%', width: '100%' }} />;
 };
-
-export default PDVMap;

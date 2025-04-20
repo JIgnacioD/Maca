@@ -5,7 +5,7 @@ import { PDV, PDVPayload } from '@/types/pdv';
 import { usePDVs } from '@/hooks/usePDVs';
 import PDVList from '@/layouts/PDV/PDVList';
 import PDVFormModal from '@/layouts/PDV/PDVFormModal';
-import PDVMap from '@/layouts/PDV/PDVMap';
+import { PDVMap } from '@/layouts/PDV/PDVMap';
 
 export default function PDVManagementPage() {
     const { pdvs, raw, search, setSearch, reload } = usePDVs();
@@ -29,9 +29,14 @@ export default function PDVManagementPage() {
     return (
         <AppLayout>
             <Head title="Gestión de PDVs" />
-            <div className="flex flex-col md:flex-row h-[calc(100vh-4rem)]">
+            <div className="flex h-[calc(100vh-4rem)]">
+                {/* Map panel - 1/3 */}
+                <div className="w-1/3 p-4">
+                    <PDVMap pdvs={raw} selected={selected} />
+                </div>
+
                 {/* List & Form panel - 2/3 */}
-                <div className="w-[100vw] md:w-2/3 p-1 lg:p-2">
+                <div className="w-2/3 p-4">
                     {!modalOpen ? (
                         <PDVList
                             pdvs={pdvs}
@@ -52,12 +57,9 @@ export default function PDVManagementPage() {
                         />
                     )}
                 </div>
-
-                {/* Map panel - 1/3 */}
-                <div className="w-1/3 pr-1 pt-1 lg:pt-2">
-                    {/* <PDVMap pdvs={raw} selected={selected} /> */}
-                </div>
             </div>
         </AppLayout>
     );
 }
+// PDVManagementPage.tsx
+// This file is part of the project and is responsible for managing the PDV (Point of Sale) page.

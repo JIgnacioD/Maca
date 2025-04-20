@@ -1,6 +1,6 @@
 // components/GoalsProgress.tsx
 import React, { useEffect, useState } from 'react';
-import { Info, FileText } from 'lucide-react';
+import { Info, File } from 'lucide-react';
 import {
   Tooltip,
   TooltipProvider,
@@ -68,7 +68,7 @@ const GoalsProgress: React.FC = () => {
             </Tooltip>
           </h2>
           <button className="flex items-center space-x-1 px-3 py-2 rounded-md bg-amber-800 text-white hover:bg-amber-600 transition">
-            <FileText size={20} />
+            <File size={20} />
             <span>Acceso</span>
           </button>
         </div>
