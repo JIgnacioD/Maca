@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('dashboard'); // Vista para usuarios autenticados
@@ -27,17 +25,14 @@ Route::middleware('auth')->get('/api/users', [DashboardController::class, 'getUs
 
 use App\Http\Controllers\PdvController;
 
-Route::middleware(['auth', 'verified'])->resource('pdvs', PdvController::class)->except(['show']); // o ->only(['index','store','edit','update','destroy'])
-
 Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('dashboard', function () { return Inertia::render('dashboard'); })->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/planner', function () { return Inertia::render('api/planner'); })->name('planner');
-    Route::get('/planner', function () { return Inertia::render('api/planner'); })->name('planner');
 
     Route::get('/api/goals', [GoalProgressController::class, 'index'])->name('goals.progress');
     Route::get('/api/merchandising', [MerchandisingController::class, 'index']);
-    Route::get('/pdvs', [PdvController::class, 'index'])->name('pdvs.index');
+    Route::resource('pdvs', PdvController::class);
 });
 
 Route::middleware(['auth', 'verified', 'role:admin,superadmin'])->group(function () {

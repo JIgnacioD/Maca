@@ -29,14 +29,17 @@ class PdvController extends Controller
     {
         // Validación de campos obligatorios
         $validated = $request->validate([
-            'pdv_name'   => 'required|string|max:255',
-            'address'    => 'required|string|max:255',
-            'street_type'    => 'required|string|max:2',
-            'street_name'    => 'required|string|max:100',
-            'street_num'    => 'required|string|max:4',
-            'cp'         => 'required|string|max:5',
-            'city'       => 'required|string|max:100',
-            'province'   => 'required|string|max:100',
+            'pdv_name'     => 'required|string|max:255', // Nombre del PDV (obligatorio, máximo 255 caracteres)
+            'description'  => 'nullable|string|max:65535', // Descripción (opcional, máximo permitido por `text`)
+            'address'      => 'required|string|max:255', // Dirección (obligatoria, máximo 255 caracteres)
+            'street_type'  => 'required|string|max:2', // Tipo de vía (obligatorio, máximo 2 caracteres)
+            'street_name'  => 'required|string|max:100', // Nombre de la vía (obligatorio, máximo 100 caracteres)
+            'street_num'   => 'required|string|max:4', // Número de la vía (obligatorio, máximo 4 caracteres)
+            'cp'           => 'required|string|max:5', // Código postal (obligatorio, máximo 5 caracteres)
+            'city'         => 'required|string|max:255', // Localidad (obligatoria, máximo 255 caracteres)
+            'province'     => 'required|string|max:255', // Provincia (obligatoria, máximo 255 caracteres)
+            'lat'          => 'nullable|numeric|between:-90,90', // Latitud (opcional, debe ser numérica y válida)
+            'lng'          => 'nullable|numeric|between:-180,180', // Longitud (opcional, debe ser numérica y válida)
         ]);
 
         // Crear nuevo PDV
@@ -63,14 +66,17 @@ class PdvController extends Controller
     {
         // Validación de los campos a actualizar
         $validated = $request->validate([
-            'pdv_name'   => 'required|string|max:255',
-            'address'    => 'required|string|max:255',
-            'street_type'    => 'required|string|max:2',
-            'street_name'    => 'required|string|max:100',
-            'street_num'    => 'required|string|max:4',
-            'cp'         => 'required|string|max:5',
-            'city'       => 'required|string|max:100',
-            'province'   => 'required|string|max:100',
+            'pdv_name'     => 'required|string|max:255', // Nombre del PDV (obligatorio, máximo 255 caracteres)
+            'description'  => 'nullable|string|max:65535', // Descripción (opcional, máximo permitido por `text`)
+            'address'      => 'required|string|max:255', // Dirección (obligatoria, máximo 255 caracteres)
+            'street_type'  => 'required|string|max:2', // Tipo de vía (obligatorio, máximo 2 caracteres)
+            'street_name'  => 'required|string|max:100', // Nombre de la vía (obligatorio, máximo 100 caracteres)
+            'street_num'   => 'required|string|max:4', // Número de la vía (obligatorio, máximo 4 caracteres)
+            'cp'           => 'required|string|max:5', // Código postal (obligatorio, máximo 5 caracteres)
+            'city'         => 'required|string|max:255', // Localidad (obligatoria, máximo 255 caracteres)
+            'province'     => 'required|string|max:255', // Provincia (obligatoria, máximo 255 caracteres)
+            'lat'          => 'nullable|numeric|between:-90,90', // Latitud (opcional, debe ser numérica y válida)
+            'lng'          => 'nullable|numeric|between:-180,180', // Longitud (opcional, debe ser numérica y válida)
         ]);
 
         // Actualizar PDV
